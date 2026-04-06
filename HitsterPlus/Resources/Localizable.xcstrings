@@ -34,6 +34,7 @@
       }
     },
     "Export Images" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -48,6 +49,9 @@
           }
         }
       }
+    },
+    "Export PDF" : {
+
     },
     "Generate" : {
       "localizations" : {

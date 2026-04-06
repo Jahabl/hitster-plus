@@ -26,13 +26,13 @@ struct GenerateCardsView: View {
     let filter = CIFilter.qrCodeGenerator()
     
     @State var cardSheets: [AnyView] = []
-    @State var renderedImages: [UIImage] = []
+    @State var pdfURL: URL?
     
     @State var showShare: Bool = false
     
     let a4Size: CGSize = CGSize(width: 2480, height: 3508) //300 DPI
     
-    func createPreviews(currPlaylist: MPMediaItemCollection) {
+    func createPreviews(from currPlaylist: MPMediaItemCollection) {
         let sheets: Int = Int(ceilf(Float(currPlaylist.items.count) / 8))
         
         for sheet in 0 ..< sheets {
@@ -42,7 +42,7 @@ struct GenerateCardsView: View {
             
             while index < (sheet + 1) * 8 && index < currPlaylist.items.count {
                 if let songTitle: String = currPlaylist.items[index].title {
-                    images.append(generateQRCode(text: songTitle))
+                    images.append(generateQRCode(from: songTitle))
                     songs.append(currPlaylist.items[index])
                 }
                 
@@ -54,7 +54,7 @@ struct GenerateCardsView: View {
         }
     }
     
-    func generateQRCode(text: String) -> UIImage {
+    func generateQRCode(from text: String) -> UIImage {
         filter.message = Data(text.utf8)
         
         if let outputImage: CIImage = filter.outputImage {
@@ -64,6 +64,32 @@ struct GenerateCardsView: View {
         }
         
         return UIImage(systemName: "xmark.circle") ?? UIImage()
+    }
+    
+    func createPDF(from views: [AnyView]) -> URL {
+        let url: URL = FileManager.default.temporaryDirectory.appendingPathComponent("cardSheet.pdf")
+        
+        var mediaBox: CGRect = CGRect(origin: CGPoint.zero, size: a4Size)
+        
+        guard let context: CGContext = CGContext(url as CFURL, mediaBox: &mediaBox, nil) else {
+            fatalError("Could not create PDF context")
+        }
+        
+        for view in views {
+            let renderer = ImageRenderer(content: view.frame(width: a4Size.width, height: a4Size.height))
+            
+            renderer.scale = 1
+            context.beginPDFPage(nil)
+            renderer.render { size, renderContext in
+                renderContext(context)
+            }
+            
+            context.endPDFPage()
+        }
+        
+        context.closePDF()
+        
+        return url
     }
     
     var body: some View {
@@ -84,13 +110,8 @@ struct GenerateCardsView: View {
                         Spacer()
                     }
                     else {
-                        Button {
-                            showShare = true
-                        } label: {
-                            Text("Export Images")
-                        }
-                        .sheet(isPresented: $showShare) {
-                            ShareView(items: renderedImages)
+                        ShareLink(item: pdfURL!) {
+                            Label("Export PDF", systemImage: "square.and.arrow.up")
                         }
                         .buttonStyle(StyledButton())
                         .padding(30)
@@ -126,19 +147,9 @@ struct GenerateCardsView: View {
                 return
             }
             
-            createPreviews(currPlaylist: currPlaylist!)
+            createPreviews(from: currPlaylist!)
             
-            for sheet in cardSheets {
-                let renderer = ImageRenderer(content: sheet.frame(width: a4Size.width, height: a4Size.height))
-                renderedImages.append(renderer.uiImage!)
-            }
-            
-            /*let renderer = ImageRenderer(content: qrSheet)
-            renderer.scale = displayScale
-            
-            if renderer.uiImage != nil {
-                renderedImage = renderer.uiImage!
-            }*/
+            pdfURL = createPDF(from: cardSheets)
         }
     }
 }
