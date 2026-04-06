@@ -71,19 +71,32 @@ struct MainView: View {
             if showingPopUP {
                 Color("Background").ignoresSafeArea().opacity(0.5)
                 VStack(alignment: HorizontalAlignment.leading) {
-                    Text("Playlist Name").font(Font.headline)
-                    Text("Use songs in playlist to generate cards")
-                    TextField("Playlist Name", text: $inputText, prompt: Text("Hitster")).modifier(StyledModifier())
-                    Button {
-                        readInput()
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text("Generate")
-                            Spacer()
+                    Text("Generate").font(Font.headline).padding([Edge.Set.top])
+                    Text("Use songs from playlist to generate printable cards").padding([Edge.Set.bottom])
+                    TextField("Playlist", text: $inputText).modifier(StyledModifier())
+                    Divider()
+                    HStack {
+                        Button {
+                            showingPopUP = false
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("Cancel")
+                                Spacer()
+                            }
                         }
+                        .buttonStyle(StyledButton())
+                        Button {
+                            readInput()
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("Preview")
+                                Spacer()
+                            }
+                        }
+                        .buttonStyle(StyledButton(tintColor: Color.accentColor))
                     }
-                    .buttonStyle(StyledButton(tintColor: Color.accentColor))
                 }
                 .modifier(StyledModifier())
                 .padding(30)

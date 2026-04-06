@@ -47,7 +47,7 @@ struct GenerateCardsView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: Alignment.topTrailing) {
-                Color.purple.ignoresSafeArea()
+                Color("Background").ignoresSafeArea()
                 ScrollView {
                     VStack {
                         ForEach(0 ..< cardSheets.count, id: \.self) { i in
@@ -61,15 +61,17 @@ struct GenerateCardsView: View {
                         Text("No card sheets generated")
                         Spacer()
                     }
-                    Button {
-                        showShare = true
-                    } label: {
-                        Text("Export Images")
+                    else {
+                        Button {
+                            showShare = true
+                        } label: {
+                            Text("Export Images")
+                        }
+                        .sheet(isPresented: $showShare) {
+                            ShareView(items: renderedImages)
+                        }
+                        .buttonStyle(StyledButton())
                     }
-                    .sheet(isPresented: $showShare) {
-                        ShareView(items: renderedImages)
-                    }
-                    .buttonStyle(StyledButton())
                 }
                 .frame(width: geometry.size.width)
                 Button {

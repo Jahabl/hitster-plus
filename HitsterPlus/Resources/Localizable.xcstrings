@@ -1,6 +1,22 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Cancel" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "Create Card Sheet" : {
       "localizations" : {
         "de" : {
@@ -17,6 +33,22 @@
         }
       }
     },
+    "Export Images" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder exportieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export Images"
+          }
+        }
+      }
+    },
     "Generate" : {
       "localizations" : {
         "de" : {
@@ -29,16 +61,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Generate"
-          }
-        }
-      }
-    },
-    "Hitster" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hitster"
           }
         }
       }
@@ -123,24 +145,53 @@
         }
       }
     },
-    "Playlist Name" : {
+    "No card sheets generated" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Playlist-Name"
+            "value" : "Keine Kartenbögen erstellt"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Playlist Name"
+            "value" : "No card sheets generated"
           }
         }
       }
     },
-    "Share" : {
-
+    "Playlist" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playlist"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playlist"
+          }
+        }
+      }
+    },
+    "Preview" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschau"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preview"
+          }
+        }
+      }
     },
     "Start Game" : {
       "localizations" : {
@@ -206,8 +257,21 @@
         }
       }
     },
-    "Use songs in playlist to generate cards" : {
-
+    "Use songs from playlist to generate printable cards" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwende Titel aus der Playlist, um druckbare Karten zu erstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use songs from playlist to generate printable cards"
+          }
+        }
+      }
     },
     "Whole Song" : {
       "localizations" : {
