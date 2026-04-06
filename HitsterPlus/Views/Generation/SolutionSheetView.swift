@@ -36,15 +36,15 @@ struct SolutionSheetView: View {
                                             Color.white
                                             VStack {
                                                 Text(songs[i * columns + (columns - j - 1)].artist ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).font(Font.system(size: geometry.size.width / 50, weight: Font.Weight.bold))
-                                                    .frame(height: geometry.size.width / 12)
+                                                    .frame(height: geometry.size.width / 9.75)
                                                 Spacer()
                                                 Text(songs[i * columns + (columns - j - 1)].title ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).italic().font(Font.system(size: geometry.size.width / 50))
-                                                    .frame(height: geometry.size.width / 12)
+                                                    .frame(height: geometry.size.width / 9.75)
                                             }
                                             .padding(geometry.size.width / 50)
                                             Text(String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: songs[i * columns + (columns - j - 1)].releaseDate ?? Date.now))).foregroundStyle(Color.black).font(Font.system(size: geometry.size.width / 20, weight: Font.Weight.black))
                                         }
-                                        .frame(width: geometry.size.width / 4, height: geometry.size.width / 4)
+                                        .frame(width: geometry.size.width / 3.25, height: geometry.size.width / 3.25)
                                         .overlay {
                                             Rectangle().stroke(Color.black, lineWidth: 0.5)
                                         }
@@ -54,7 +54,7 @@ struct SolutionSheetView: View {
                         }
                     }
                 }
-                .frame(width: geometry.size.width / 4 * CGFloat(columns), height: geometry.size.width / 4 * CGFloat(rows), alignment: Alignment.topTrailing)
+                .frame(width: geometry.size.width / 3.25 * CGFloat(columns), height: geometry.size.width / 3.25 * CGFloat(rows), alignment: Alignment.topTrailing)
             }
         }
     }

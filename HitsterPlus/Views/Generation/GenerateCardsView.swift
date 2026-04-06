@@ -33,14 +33,14 @@ struct GenerateCardsView: View {
     let a4Size: CGSize = CGSize(width: 2480, height: 3508) //300 DPI
     
     func createPreviews(currPlaylist: MPMediaItemCollection) {
-        let sheets: Int = Int(ceilf(Float(currPlaylist.items.count) / 15))
+        let sheets: Int = Int(ceilf(Float(currPlaylist.items.count) / 8))
         
         for sheet in 0 ..< sheets {
             var images: [UIImage] = []
             var songs: [MPMediaItem] = []
-            var index: Int = sheet * 15
+            var index: Int = sheet * 8
             
-            while index < (sheet + 1) * 15 && index < currPlaylist.items.count {
+            while index < (sheet + 1) * 8 && index < currPlaylist.items.count {
                 if let songTitle: String = currPlaylist.items[index].title {
                     images.append(generateQRCode(text: songTitle))
                     songs.append(currPlaylist.items[index])
@@ -49,8 +49,8 @@ struct GenerateCardsView: View {
                 index += 1
             }
             
-            cardSheets.append(AnyView(QRSheetView(images: images, columns: 3, rows: 5)))
-            cardSheets.append(AnyView(SolutionSheetView(songs: songs, columns: 3, rows: 5)))
+            cardSheets.append(AnyView(QRSheetView(images: images, columns: 2, rows: 4)))
+            cardSheets.append(AnyView(SolutionSheetView(songs: songs, columns: 2, rows: 4)))
         }
     }
     
@@ -93,6 +93,7 @@ struct GenerateCardsView: View {
                             ShareView(items: renderedImages)
                         }
                         .buttonStyle(StyledButton())
+                        .padding(30)
                     }
                 }
                 .frame(width: geometry.size.width)
