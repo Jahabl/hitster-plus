@@ -11,9 +11,15 @@ import MediaPlayer
 struct SolutionSheetView: View {
     let songs: [MPMediaItem]
     let columns: Int
+    let rows: Int
+    let maxRows: Int
     
-    func getRowAmount() -> Int {
-        return Int(ceilf(Float(songs.count) / Float(columns)))
+    init(songs: [MPMediaItem], columns: Int, rows: Int) {
+        self.songs = songs
+        self.columns = columns
+        self.rows = rows
+        
+        self.maxRows = Int(ceilf(Float(songs.count) / Float(columns)))
     }
     
     var body: some View {
@@ -22,7 +28,7 @@ struct SolutionSheetView: View {
                 Color.white
                 ZStack {
                     VStack(alignment: HorizontalAlignment.trailing, spacing: 0) {
-                        ForEach(0 ..< getRowAmount(), id: \.self) { i in
+                        ForEach(0 ..< maxRows, id: \.self) { i in
                             HStack(spacing: 0) {
                                 ForEach(0 ..< columns, id: \.self) { j in
                                     if i * columns + (columns - j - 1) < songs.count {
@@ -30,10 +36,10 @@ struct SolutionSheetView: View {
                                             Color.white
                                             VStack {
                                                 Text(songs[i * columns + (columns - j - 1)].artist ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).font(Font.system(size: geometry.size.width / 50, weight: Font.Weight.bold))
-                                                    .frame(height: geometry.size.width / 4 / 3)
+                                                    .frame(height: geometry.size.width / 12)
                                                 Spacer()
                                                 Text(songs[i * columns + (columns - j - 1)].title ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).italic().font(Font.system(size: geometry.size.width / 50))
-                                                    .frame(height: geometry.size.width / 4 / 3)
+                                                    .frame(height: geometry.size.width / 12)
                                             }
                                             .padding(geometry.size.width / 50)
                                             Text(String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: songs[i * columns + (columns - j - 1)].releaseDate ?? Date.now))).foregroundStyle(Color.black).font(Font.system(size: geometry.size.width / 20, weight: Font.Weight.black))
@@ -48,12 +54,12 @@ struct SolutionSheetView: View {
                         }
                     }
                 }
-                .frame(width: geometry.size.width / 4 * CGFloat(columns), height: geometry.size.width / 4 * 5, alignment: Alignment.topTrailing)
+                .frame(width: geometry.size.width / 4 * CGFloat(columns), height: geometry.size.width / 4 * CGFloat(rows), alignment: Alignment.topTrailing)
             }
         }
     }
 }
 
 #Preview {
-    SolutionSheetView(songs: [], columns: 3)
+    SolutionSheetView(songs: [], columns: 3, rows: 5)
 }

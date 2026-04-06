@@ -30,18 +30,40 @@ struct GenerateCardsView: View {
     
     @State var showShare: Bool = false
     
-    let a4Size: CGSize = CGSize(width: 2480, height: 3508) // 300 DPI
+    let a4Size: CGSize = CGSize(width: 2480, height: 3508) //300 DPI
+    
+    func createPreviews(currPlaylist: MPMediaItemCollection) {
+        let sheets: Int = Int(ceilf(Float(currPlaylist.items.count) / 15))
+        
+        for sheet in 0 ..< sheets {
+            var images: [UIImage] = []
+            var songs: [MPMediaItem] = []
+            var index: Int = sheet * 15
+            
+            while index < (sheet + 1) * 15 && index < currPlaylist.items.count {
+                if let songTitle: String = currPlaylist.items[index].title {
+                    images.append(generateQRCode(text: songTitle))
+                    songs.append(currPlaylist.items[index])
+                }
+                
+                index += 1
+            }
+            
+            cardSheets.append(AnyView(QRSheetView(images: images, columns: 3, rows: 5)))
+            cardSheets.append(AnyView(SolutionSheetView(songs: songs, columns: 3, rows: 5)))
+        }
+    }
     
     func generateQRCode(text: String) -> UIImage {
         filter.message = Data(text.utf8)
-
-            if let outputImage = filter.outputImage {
-                if let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
-                    return UIImage(cgImage: cgImage)
-                }
+        
+        if let outputImage: CIImage = filter.outputImage {
+            if let cgImage: CGImage = context.createCGImage(outputImage, from: outputImage.extent) {
+                return UIImage(cgImage: cgImage)
             }
-
-            return UIImage(systemName: "xmark.circle") ?? UIImage()
+        }
+        
+        return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
     
     var body: some View {
@@ -103,25 +125,7 @@ struct GenerateCardsView: View {
                 return
             }
             
-            let sheets: Int = Int(ceilf(Float(currPlaylist!.items.count) / 15))
-            
-            for sheet in 0 ..< sheets {
-                var images: [UIImage] = []
-                var songs: [MPMediaItem] = []
-                var index: Int = sheet * 15
-                
-                while index < (sheet + 1) * 15 && index < currPlaylist!.items.count {
-                    if let songTitle: String = currPlaylist!.items[index].title {
-                        images.append(generateQRCode(text: songTitle))
-                        songs.append(currPlaylist!.items[index])
-                    }
-                    
-                    index += 1
-                }
-                
-                cardSheets.append(AnyView(QRSheetView(images: images, columns: 3)))
-                cardSheets.append(AnyView(SolutionSheetView(songs: songs, columns: 3)))
-            }
+            createPreviews(currPlaylist: currPlaylist!)
             
             for sheet in cardSheets {
                 let renderer = ImageRenderer(content: sheet.frame(width: a4Size.width, height: a4Size.height))

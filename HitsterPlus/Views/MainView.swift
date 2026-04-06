@@ -69,7 +69,7 @@ struct MainView: View {
             .padding(30)
             .blur(radius: showingPopUP ? 2.5 : 0)
             if showingPopUP {
-                Color("Background").ignoresSafeArea().opacity(0.5)
+                Color("Background").ignoresSafeArea().opacity(0.75).contentShape(Rectangle())
                 VStack(alignment: HorizontalAlignment.leading) {
                     Text("Generate").font(Font.headline).padding([Edge.Set.top])
                     Text("Use songs from playlist to generate printable cards").padding([Edge.Set.bottom])
@@ -95,7 +95,7 @@ struct MainView: View {
                                 Spacer()
                             }
                         }
-                        .buttonStyle(StyledButton(tintColor: Color.accentColor))
+                        .buttonStyle(StyledButton(tintColor: inputText.isEmpty ? Color.clear : Color.accentColor))
                     }
                 }
                 .modifier(StyledModifier())

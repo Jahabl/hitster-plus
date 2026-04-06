@@ -11,11 +11,14 @@ struct QRSheetView: View {
     let images: [UIImage]
     let columns: Int
     let rows: Int
+    let maxRows: Int
     
-    init(images: [UIImage], columns: Int) {
+    init(images: [UIImage], columns: Int, rows: Int) {
         self.images = images
         self.columns = columns
-        self.rows = Int(ceilf(Float(images.count) / Float(columns)))
+        self.rows = rows
+        
+        self.maxRows = Int(ceilf(Float(images.count) / Float(columns)))
     }
     
     var body: some View {
@@ -24,7 +27,7 @@ struct QRSheetView: View {
                 Color.white
                 ZStack {
                     VStack(alignment: HorizontalAlignment.leading, spacing: 0) {
-                        ForEach(0 ..< rows, id: \.self) { i in
+                        ForEach(0 ..< maxRows, id: \.self) { i in
                             HStack(spacing: 0) {
                                 ForEach(0 ..< columns, id: \.self) { j in
                                     if i * columns + j < images.count {
@@ -49,5 +52,5 @@ struct QRSheetView: View {
 }
 
 #Preview {
-    QRSheetView(images: [], columns: 3)
+    QRSheetView(images: [], columns: 3, rows: 5)
 }
