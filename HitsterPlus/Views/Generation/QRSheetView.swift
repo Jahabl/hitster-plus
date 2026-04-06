@@ -23,9 +23,9 @@ struct QRSheetView: View {
             ZStack {
                 Color.white
                 ZStack {
-                    Grid(alignment: Alignment.topLeading, horizontalSpacing: 0, verticalSpacing: 0) {
+                    VStack(alignment: HorizontalAlignment.leading, spacing: 0) {
                         ForEach(0 ..< rows, id: \.self) { i in
-                            GridRow {
+                            HStack(spacing: 0) {
                                 ForEach(0 ..< columns, id: \.self) { j in
                                     if i * columns + j < images.count {
                                         ZStack {

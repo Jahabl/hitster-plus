@@ -26,7 +26,11 @@ struct GenerateCardsView: View {
     let filter = CIFilter.qrCodeGenerator()
     
     @State var cardSheets: [AnyView] = []
-    @State var renderedImage: UIImage?
+    @State var renderedImages: [UIImage] = []
+    
+    @State var showShare: Bool = false
+    
+    let a4Size: CGSize = CGSize(width: 2480, height: 3508) // 300 DPI
     
     func generateQRCode(text: String) -> UIImage {
         filter.message = Data(text.utf8)
@@ -51,6 +55,23 @@ struct GenerateCardsView: View {
                         }
                     }
                 }
+                VStack {
+                    Spacer()
+                    if cardSheets.isEmpty {
+                        Text("No card sheets generated")
+                        Spacer()
+                    }
+                    Button {
+                        showShare = true
+                    } label: {
+                        Text("Export Images")
+                    }
+                    .sheet(isPresented: $showShare) {
+                        ShareView(items: renderedImages)
+                    }
+                    .buttonStyle(StyledButton())
+                }
+                .frame(width: geometry.size.width)
                 Button {
                     manager.setView(view: AnyView(MainView(musicAccess: musicAccess, turnPhone: turnPhone, playWholeSong: playWholeSong).environmentObject(manager)))
                 } label: {
@@ -100,6 +121,11 @@ struct GenerateCardsView: View {
                 cardSheets.append(AnyView(SolutionSheetView(songs: songs, columns: 3)))
             }
             
+            for sheet in cardSheets {
+                let renderer = ImageRenderer(content: sheet.frame(width: a4Size.width, height: a4Size.height))
+                renderedImages.append(renderer.uiImage!)
+            }
+            
             /*let renderer = ImageRenderer(content: qrSheet)
             renderer.scale = displayScale
             
@@ -112,4 +138,14 @@ struct GenerateCardsView: View {
 
 #Preview {
     GenerateCardsView(musicAccess: MPMediaLibraryAuthorizationStatus.authorized, inputText: "Hitster", turnPhone: true, playWholeSong: false)
+}
+
+struct ShareView: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
 }

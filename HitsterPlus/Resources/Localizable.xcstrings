@@ -18,10 +18,30 @@
       }
     },
     "Generate" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generate"
+          }
+        }
+      }
     },
     "Hitster" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hitster"
+          }
+        }
+      }
     },
     "Invalid QR code" : {
       "localizations" : {
@@ -72,7 +92,20 @@
       }
     },
     "Loading" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laden…"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading…"
+          }
+        }
+      }
     },
     "Next Card" : {
       "localizations" : {
@@ -105,6 +138,9 @@
           }
         }
       }
+    },
+    "Share" : {
+
     },
     "Start Game" : {
       "localizations" : {

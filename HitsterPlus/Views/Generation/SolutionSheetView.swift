@@ -21,22 +21,22 @@ struct SolutionSheetView: View {
             ZStack {
                 Color.white
                 ZStack {
-                    Grid(alignment: Alignment.topLeading, horizontalSpacing: 0, verticalSpacing: 0) {
+                    VStack(alignment: HorizontalAlignment.trailing, spacing: 0) {
                         ForEach(0 ..< getRowAmount(), id: \.self) { i in
-                            GridRow {
+                            HStack(spacing: 0) {
                                 ForEach(0 ..< columns, id: \.self) { j in
-                                    if i * columns + j < songs.count {
+                                    if i * columns + (columns - j - 1) < songs.count {
                                         ZStack {
                                             Color.white
                                             VStack {
-                                                Text(songs[i * columns + j].artist ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).font(Font.system(size: geometry.size.width / 50, weight: Font.Weight.bold))
+                                                Text(songs[i * columns + (columns - j - 1)].artist ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).font(Font.system(size: geometry.size.width / 50, weight: Font.Weight.bold))
                                                     .frame(height: geometry.size.width / 4 / 3)
                                                 Spacer()
-                                                Text(songs[i * columns + j].title ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).italic().font(Font.system(size: geometry.size.width / 50))
+                                                Text(songs[i * columns + (columns - j - 1)].title ?? "Not Found").foregroundStyle(Color.black).multilineTextAlignment(TextAlignment.center).italic().font(Font.system(size: geometry.size.width / 50))
                                                     .frame(height: geometry.size.width / 4 / 3)
                                             }
                                             .padding(geometry.size.width / 50)
-                                            Text(String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: songs[i * columns + j].releaseDate ?? Date.now))).foregroundStyle(Color.black).font(Font.system(size: geometry.size.width / 20, weight: Font.Weight.black))
+                                            Text(String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: songs[i * columns + (columns - j - 1)].releaseDate ?? Date.now))).foregroundStyle(Color.black).font(Font.system(size: geometry.size.width / 20, weight: Font.Weight.black))
                                         }
                                         .frame(width: geometry.size.width / 4, height: geometry.size.width / 4)
                                         .overlay {
@@ -48,7 +48,7 @@ struct SolutionSheetView: View {
                         }
                     }
                 }
-                .frame(width: geometry.size.width / 4 * CGFloat(columns), height: geometry.size.width / 4 * 5, alignment: Alignment.topLeading)
+                .frame(width: geometry.size.width / 4 * CGFloat(columns), height: geometry.size.width / 4 * 5, alignment: Alignment.topTrailing)
             }
         }
     }
