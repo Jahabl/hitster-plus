@@ -8,14 +8,13 @@
 import SwiftUI
 import MediaPlayer
 import CoreImage.CIFilterBuiltins
-internal import Combine
 
 struct GenerateCardsView: View {
     @EnvironmentObject var manager: ViewManager
     @Environment(\.displayScale) var displayScale
     
     let musicAccess: MPMediaLibraryAuthorizationStatus
-    let inputText: String
+    let playlist: MPMediaItemCollection
     
     var turnPhone: Bool
     var playWholeSong: Bool
@@ -128,34 +127,14 @@ struct GenerateCardsView: View {
             }
         }
         .task {
-            let playlists: [MPMediaItemCollection]? = MPMediaQuery.playlists().collections
-            
-            if playlists == nil {
-                return
-            }
-            
-            let currPlaylist: MPMediaItemCollection? = playlists!.first { playlist in
-                if let playlistName: String = playlist.value(forProperty: MPMediaPlaylistPropertyName) as? String {
-                    return playlistName.caseInsensitiveCompare(inputText) == ComparisonResult.orderedSame
-                }
-                else {
-                    return false
-                }
-            }
-            
-            if currPlaylist == nil {
-                return
-            }
-            
-            createPreviews(from: currPlaylist!)
-            
+            createPreviews(from: playlist)
             pdfURL = createPDF(from: cardSheets)
         }
     }
 }
 
 #Preview {
-    GenerateCardsView(musicAccess: MPMediaLibraryAuthorizationStatus.authorized, inputText: "Hitster", turnPhone: true, playWholeSong: false)
+    GenerateCardsView(musicAccess: MPMediaLibraryAuthorizationStatus.authorized, playlist: MPMediaItemCollection(), turnPhone: true, playWholeSong: false)
 }
 
 struct ShareView: UIViewControllerRepresentable {

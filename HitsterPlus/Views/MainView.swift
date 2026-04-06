@@ -17,16 +17,8 @@ struct MainView: View {
     @State var turnPhone: Bool
     @State var playWholeSong: Bool
     
-    @State var showingPopUP: Bool = false
-    @State var inputText: String = ""
-    
-    func readInput() {
-        if inputText.isEmpty {
-            return
-        }
-        
-        manager.setView(view: AnyView(GenerateCardsView(musicAccess: musicAccess, inputText: inputText, turnPhone: turnPhone, playWholeSong: playWholeSong).environmentObject(manager)))
-    }
+    @State private var playlist: MPMediaItemCollection?
+    @State private var showingPicker: Bool = false
     
     var body: some View {
         ZStack {
@@ -56,7 +48,8 @@ struct MainView: View {
                 }
                 .modifier(StyledModifier())
                 Button {
-                    showingPopUP = true
+                    showingPicker = true
+                    //showingPopUP = true
                 } label: {
                     HStack {
                         Text("Create Card Sheet")
@@ -65,42 +58,16 @@ struct MainView: View {
                     }
                 }
                 .buttonStyle(StyledButton())
-            }
-            .padding(30)
-            .blur(radius: showingPopUP ? 2.5 : 0)
-            if showingPopUP {
-                Color("Background").ignoresSafeArea().opacity(0.75)
-                VStack(alignment: HorizontalAlignment.leading) {
-                    Text("Generate").font(Font.headline).padding([Edge.Set.top])
-                    Text("Use songs from playlist to generate printable cards").padding([Edge.Set.bottom])
-                    TextField("Playlist", text: $inputText).modifier(StyledModifier())
-                    Divider()
-                    HStack {
-                        Button {
-                            showingPopUP = false
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Text("Cancel")
-                                Spacer()
-                            }
-                        }
-                        .buttonStyle(StyledButton())
-                        Button {
-                            readInput()
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Text("Preview")
-                                Spacer()
-                            }
-                        }
-                        .buttonStyle(StyledButton(tintColor: inputText.isEmpty ? Color.clear : Color.accentColor))
+                .sheet(isPresented: $showingPicker) {
+                    MusicPicker(playlist: self.$playlist)
+                }
+                .onChange(of: playlist) { newList in
+                    if newList != nil {
+                        manager.setView(view: AnyView(GenerateCardsView(musicAccess: musicAccess, playlist: newList!, turnPhone: turnPhone, playWholeSong: playWholeSong).environmentObject(manager)))
                     }
                 }
-                .modifier(StyledModifier())
-                .padding(30)
             }
+            .padding(30)
         }
         .onDisappear {
             UserDefaults.standard.set(!turnPhone, forKey: "noPhoneTurn")

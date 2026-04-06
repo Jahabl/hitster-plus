@@ -2,6 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "Cancel" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -33,27 +34,24 @@
         }
       }
     },
-    "Export Images" : {
-      "extractionState" : "stale",
+    "Export PDF" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bilder exportieren"
+            "value" : "PDF exportieren"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Export Images"
+            "value" : "Export PDF"
           }
         }
       }
     },
-    "Export PDF" : {
-
-    },
     "Generate" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -166,6 +164,7 @@
       }
     },
     "Playlist" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -182,6 +181,7 @@
       }
     },
     "Preview" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -262,6 +262,7 @@
       }
     },
     "Use songs from playlist to generate printable cards" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
