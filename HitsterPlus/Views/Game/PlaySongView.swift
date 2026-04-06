@@ -115,7 +115,7 @@ struct PlaySongView: View {
                     }
                 })
                 
-                RunLoop.current.add(musicTimer!, forMode: RunLoop.Mode.common)
+                RunLoop.current.add(musicTimer!, forMode: RunLoop.Mode.common) //can't be in task
             } catch {
                 print("\(error)")
             }

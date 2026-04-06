@@ -10,16 +10,23 @@ import MediaPlayer
 
 @main
 struct HitsterPlusApp: App {
+    @StateObject var manager: ViewManager = ViewManager()
+    
+    @State var isLoading: Bool = true
+    
     private let musicAccess: MPMediaLibraryAuthorizationStatus
     
-    @State private var turnPhone: Bool
-    @State private var playWholeSong: Bool
+    private var turnPhone: Bool
+    private var playWholeSong: Bool
     
     init() {
         turnPhone = !UserDefaults.standard.bool(forKey: "noPhoneTurn")
         playWholeSong = UserDefaults.standard.bool(forKey: "playWholeSong")
         
         musicAccess = MPMediaLibrary.authorizationStatus()
+    }
+    
+    func prepareApp() {
         switch musicAccess {
         case MPMediaLibraryAuthorizationStatus.authorized:
             print("authorized")
@@ -41,7 +48,17 @@ struct HitsterPlusApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(musicAccess: musicAccess, turnPhone: $turnPhone, playWholeSong: $playWholeSong)
+            if isLoading {
+                Text("Loading")
+                .task {
+                    prepareApp()
+                    manager.setView(view: AnyView(MainView(musicAccess: musicAccess, turnPhone: turnPhone, playWholeSong: playWholeSong).environmentObject(manager)))
+                    isLoading = false
+                }
+            }
+            else {
+                manager.getCurrentView()
+            }
         }
     }
 }

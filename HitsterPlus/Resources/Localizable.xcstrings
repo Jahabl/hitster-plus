@@ -1,6 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Create Card Sheet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstelle Kartenbogen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Card Sheet"
+          }
+        }
+      }
+    },
+    "Generate" : {
+
+    },
+    "Hitster" : {
+
+    },
     "Invalid QR code" : {
       "localizations" : {
         "de" : {
@@ -49,6 +71,9 @@
         }
       }
     },
+    "Loading" : {
+
+    },
     "Next Card" : {
       "localizations" : {
         "de" : {
@@ -61,6 +86,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next Card"
+          }
+        }
+      }
+    },
+    "Playlist Name" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playlist-Name"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playlist Name"
           }
         }
       }
@@ -128,6 +169,9 @@
           }
         }
       }
+    },
+    "Use songs in playlist to generate cards" : {
+
     },
     "Whole Song" : {
       "localizations" : {
