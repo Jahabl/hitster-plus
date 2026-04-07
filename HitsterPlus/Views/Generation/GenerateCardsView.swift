@@ -110,8 +110,7 @@ struct GenerateCardsView: View {
                     if cardSheets.isEmpty {
                         Text("No card sheets generated")
                         Spacer()
-                    }
-                    else {
+                    } else {
                         ShareLink(item: pdfURL!) {
                             Label("Export PDF", systemImage: "square.and.arrow.up")
                         }

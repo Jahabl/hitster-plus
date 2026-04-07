@@ -27,12 +27,10 @@ struct GameView: View {
                 if !isShowingCamera && foundSong != nil {
                     if !phoneWasTurned && turnPhone {
                         TurnPhoneView(phoneWasTurned: $phoneWasTurned)
-                    }
-                    else {
+                    } else {
                         PlaySongView(song: foundSong!, turnPhone: turnPhone, playWholeSong: playWholeSong, isShowingCamera: $isShowingCamera, phoneWasTurned: $phoneWasTurned)
                     }
-                }
-                else if !isShowingCamera {
+                } else if !isShowingCamera {
                     NotFoundView(isShowingCamera: $isShowingCamera)
                 }
                 Button {

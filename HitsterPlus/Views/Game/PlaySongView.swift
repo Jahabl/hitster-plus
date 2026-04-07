@@ -44,8 +44,7 @@ struct PlaySongView: View {
                         if isPlaying {
                             isPlaying = false
                             musicPlayer?.pause()
-                        }
-                        else {
+                        } else {
                             musicPlayer?.play()
                             isPlaying = true
                         }
@@ -57,15 +56,13 @@ struct PlaySongView: View {
                         //Image(systemName: "keyboard").font(.largeTitle.weight(.black))
                     }
                     .buttonStyle(StyledButton(cornerRadius: 100))
-                }
-                else {
+                } else {
                     Button {
                         secondsPlayed = 0
                         
                         if !playWholeSong {
                             musicPlayer?.currentTime = song.playbackDuration / 3 * 2
-                        }
-                        else {
+                        } else {
                             musicPlayer?.currentTime = 0
                         }
                         
@@ -95,8 +92,7 @@ struct PlaySongView: View {
                 musicPlayer = try AVAudioPlayer(contentsOf: song.assetURL!)
                 if !playWholeSong {
                     musicPlayer?.currentTime = song.playbackDuration / 3 * 2
-                }
-                else {
+                } else {
                     songMax = Int(ceil(song.playbackDuration))
                 }
                 

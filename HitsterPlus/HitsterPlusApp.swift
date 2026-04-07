@@ -55,8 +55,7 @@ struct HitsterPlusApp: App {
                     manager.setView(view: AnyView(MainView(musicAccess: musicAccess, turnPhone: turnPhone, playWholeSong: playWholeSong).environmentObject(manager)))
                     isLoading = false
                 }
-            }
-            else {
+            } else {
                 manager.getCurrentView()
             }
         }
