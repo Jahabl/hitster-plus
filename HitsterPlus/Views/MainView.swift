@@ -49,7 +49,6 @@ struct MainView: View {
                 .modifier(StyledModifier())
                 Button {
                     showingPicker = true
-                    //showingPopUP = true
                 } label: {
                     HStack {
                         Text("Create Card Sheet")

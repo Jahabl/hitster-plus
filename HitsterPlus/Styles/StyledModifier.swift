@@ -17,7 +17,7 @@ struct StyledModifier: ViewModifier {
         } else {
             content
                 .padding()
-                .background(Color.clear)
+                .background(Color(white: 0.5, opacity: 0.15))
                 .clipShape(RoundedRectangle(cornerRadius: 25))
         }
     }
