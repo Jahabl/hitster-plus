@@ -33,9 +33,9 @@ struct QRSheetView: View {
                                     if i * columns + j < images.count {
                                         ZStack {
                                             Color.white
-                                            Image(uiImage: images[i * columns + j]).resizable().interpolation(Image.Interpolation.none).frame(width: geometry.size.width / 6.5, height: geometry.size.width / 6.5)
+                                            Image(uiImage: images[i * columns + j]).resizable().interpolation(Image.Interpolation.none).frame(width: geometry.size.width / 7.4, height: geometry.size.width / 7.4)
                                         }
-                                        .frame(width: geometry.size.width / 3.25, height: geometry.size.width / 3.25)
+                                        .frame(width: geometry.size.width / 3.7, height: geometry.size.width / 3.7)
                                         .overlay {
                                             Rectangle().stroke(Color.black, lineWidth: 0.5)
                                         }
@@ -45,12 +45,12 @@ struct QRSheetView: View {
                         }
                     }
                 }
-                .frame(width: geometry.size.width / 3.25 * CGFloat(columns), height: geometry.size.width / 3.25 * CGFloat(rows), alignment: Alignment.topLeading)
+                .frame(width: geometry.size.width / 3.7 * CGFloat(columns), height: geometry.size.width / 3.7 * CGFloat(rows), alignment: Alignment.topLeading)
             }
         }
     }
 }
 
 #Preview {
-    QRSheetView(images: [], columns: 3, rows: 5)
+    QRSheetView(images: [], columns: 3, rows: 4)
 }
