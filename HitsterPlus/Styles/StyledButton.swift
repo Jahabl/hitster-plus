@@ -20,8 +20,7 @@ struct StyledButton: ButtonStyle {
         } else {
             configuration.label
                 .padding()
-                .background(Color(white: 0.5, opacity: 0.15))
-                .tint(tintColor)
+                .background(tintColor == Color.clear ? Color(white: 0.5, opacity: 0.15) : tintColor)
                 .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 .contentShape(Rectangle())
         }
