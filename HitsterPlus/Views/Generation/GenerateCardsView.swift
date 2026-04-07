@@ -32,17 +32,20 @@ struct GenerateCardsView: View {
     let a4Size: CGSize = CGSize(width: 2480, height: 3508) //300 DPI
     
     func createPreviews(from currPlaylist: MPMediaItemCollection) {
-        let sheets: Int = Int(ceilf(Float(currPlaylist.items.count) / 12))
+        var playlist: [MPMediaItem] = currPlaylist.items
+        playlist = Array(Set(playlist))
+        
+        let sheets: Int = Int(ceilf(Float(playlist.count) / 12))
         
         for sheet in 0 ..< sheets {
             var images: [UIImage] = []
             var songs: [MPMediaItem] = []
             var index: Int = sheet * 12
             
-            while index < (sheet + 1) * 12 && index < currPlaylist.items.count {
-                if let songTitle: String = currPlaylist.items[index].title {
+            while index < (sheet + 1) * 12 && index < playlist.count {
+                if let songTitle: String = playlist[index].title {
                     images.append(generateQRCode(from: songTitle))
-                    songs.append(currPlaylist.items[index])
+                    songs.append(playlist[index])
                 }
                 
                 index += 1
