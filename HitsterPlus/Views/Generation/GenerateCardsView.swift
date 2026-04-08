@@ -11,7 +11,6 @@ import CoreImage.CIFilterBuiltins
 
 struct GenerateCardsView: View {
     @EnvironmentObject var manager: ViewManager
-    @Environment(\.displayScale) var displayScale
     
     let musicAccess: MPMediaLibraryAuthorizationStatus
     let playlist: MPMediaItemCollection
@@ -135,14 +134,4 @@ struct GenerateCardsView: View {
 
 #Preview {
     GenerateCardsView(musicAccess: MPMediaLibraryAuthorizationStatus.authorized, playlist: MPMediaItemCollection(), turnPhone: true, playWholeSong: false)
-}
-
-struct ShareView: UIViewControllerRepresentable {
-    let items: [Any]
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: items, applicationActivities: nil)
-    }
-
-    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
 }
