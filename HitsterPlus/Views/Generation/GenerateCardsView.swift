@@ -82,9 +82,7 @@ struct GenerateCardsView: View {
             
             renderer.scale = 1
             context.beginPDFPage(nil)
-            renderer.render { size, renderContext in
-                renderContext(context)
-            }
+            context.draw(renderer.cgImage!, in: mediaBox)
             
             context.endPDFPage()
         }
