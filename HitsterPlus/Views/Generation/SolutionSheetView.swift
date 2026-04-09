@@ -22,6 +22,26 @@ struct SolutionSheetView: View {
         self.maxRows = Int(ceilf(Float(songs.count) / Float(columns)))
     }
     
+    func getReleaseYear(from song: MPMediaItem) -> String {
+        if let date: Date = song.releaseDate {
+            return String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: date))
+        }
+        
+        if let yearNumber: NSNumber = song.value(forProperty: "year") as? NSNumber {
+            if (yearNumber.isKind(of: NSNumber.self)) {
+                let year = yearNumber.intValue
+                
+                if (year != 0) {
+                    return String(year)
+                } else {
+                    return String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: Date.now))
+                }
+            }
+        }
+        
+        return String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: Date.now))
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -42,7 +62,7 @@ struct SolutionSheetView: View {
                                                     .frame(height: geometry.size.width / 11.1)
                                             }
                                             .padding(geometry.size.width / 50)
-                                            Text(String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: songs[i * columns + (columns - j - 1)].releaseDate ?? Date.now))).foregroundStyle(Color.black).font(Font.system(size: geometry.size.width / 20, weight: Font.Weight.black))
+                                            Text(getReleaseYear(from: songs[i * columns + (columns - j - 1)])).foregroundStyle(Color.black).font(Font.system(size: geometry.size.width / 20, weight: Font.Weight.black))
                                         }
                                         .frame(width: geometry.size.width / 3.7, height: geometry.size.width / 3.7)
                                         .overlay {

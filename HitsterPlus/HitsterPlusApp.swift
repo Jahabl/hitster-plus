@@ -27,22 +27,12 @@ struct HitsterPlusApp: App {
     }
     
     func prepareApp() {
-        switch musicAccess {
-        case MPMediaLibraryAuthorizationStatus.authorized:
-            print("authorized")
-        case MPMediaLibraryAuthorizationStatus.denied:
-            print("denied")
-        case MPMediaLibraryAuthorizationStatus.notDetermined:
-            print("not determined")
+        if musicAccess == MPMediaLibraryAuthorizationStatus.notDetermined {
             MPMediaLibrary.requestAuthorization() { granted in
                 if granted != MPMediaLibraryAuthorizationStatus.authorized {
                     return
                 }
             }
-        case MPMediaLibraryAuthorizationStatus.restricted:
-            print("restricted")
-        @unknown default:
-            print("default")
         }
     }
     

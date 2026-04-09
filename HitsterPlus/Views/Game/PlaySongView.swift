@@ -37,7 +37,6 @@ struct PlaySongView: View {
                     }
                     Text(song.title ?? "Not Found").font(Font.headline)
                     Text(song.artist ?? "Not Found")
-                    //Text(String(Calendar(identifier: Calendar.Identifier.gregorian).component(Calendar.Component.year, from: song.releaseDate ?? Date.now)))
                 }
                 if secondsPlayed <= songMax {
                     Button {
@@ -104,7 +103,6 @@ struct PlaySongView: View {
                         secondsPlayed += 1
                         
                         if secondsPlayed > songMax {
-                            print("finished")
                             isPlaying = false
                             musicPlayer?.pause()
                         }
