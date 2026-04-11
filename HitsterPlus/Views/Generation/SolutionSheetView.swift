@@ -64,7 +64,7 @@ struct SolutionSheetView: View {
                                             .padding(geometry.size.width / 50)
                                             Text(getReleaseYear(from: songs[i * columns + (columns - j - 1)])).foregroundStyle(Color.black).font(Font.system(size: geometry.size.width / 20, weight: Font.Weight.black))
                                         }
-                                        .frame(width: geometry.size.width / 3.7, height: geometry.size.width / 3.7)
+                                        .frame(width: round(geometry.size.width / 3.7), height: round(geometry.size.width / 3.7))
                                         .overlay {
                                             Rectangle().stroke(Color.black, lineWidth: 0.5)
                                         }
@@ -74,7 +74,7 @@ struct SolutionSheetView: View {
                         }
                     }
                 }
-                .frame(width: geometry.size.width / 3.7 * CGFloat(columns), height: geometry.size.width / 3.7 * CGFloat(rows), alignment: Alignment.topTrailing)
+                .frame(width: round(geometry.size.width / 3.7) * CGFloat(columns), height: round(geometry.size.width / 3.7) * CGFloat(rows), alignment: Alignment.topTrailing)
             }
         }
     }
